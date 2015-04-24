@@ -1,26 +1,48 @@
-var products = {
-  template: function() { //template is a property that points to an anonymous function
-    return $("#products-template").html()
-  },
-  compile: function(){
-    return Handlebars.compile(this.template());
-  },
-  request: function () {
-    var getProducts = $.getJSON("http://localhost:3000/api/products.json"); //still an ajax request
-    getProducts.done(this.buildTemplate);
-  },
-  buildTemplate: function(products_data) {
-    var html = products.compile()(products_data);
-    $('body').append(html);
-  },
-  init: function(){
-    this.request();
-  }
-}
-
 $(function(){
-  products.init();
+  var products = (function() {
+    var template = $("#products-template").html();
+
+    var compile = Handlebars.compile(template);
+
+    var buildTemplate = function(products_data) {
+      var html = compile(products_data);
+        $('body').append(html);
+    };
+
+    var request = function() {
+      var getProducts = $.getJSON("http://localhost:3000/api/products.json");
+      getProducts.done(buildTemplate);
+    };
+
+    return {
+      request: request,
+    };
+  })();
+products.request();
 });
+// var products = {
+//   template: function() { //template is a property that points to an anonymous function
+//     return $("#products-template").html()
+//   },
+//   compile: function(){
+//     return Handlebars.compile(this.template());
+//   },
+//   request: function () {
+//     var getProducts = $.getJSON("http://localhost:3000/api/products.json"); //still an ajax request
+//     getProducts.done(this.buildTemplate);
+//   },
+//   buildTemplate: function(products_data) {
+//     var html = products.compile()(products_data);
+//     $('body').append(html);
+//   },
+//   init: function(){
+//     this.request();
+//   }
+// }
+//
+// $(function(){
+//   products.init();
+// });
 
 
   // function productsRequest(){
