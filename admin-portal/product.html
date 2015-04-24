@@ -22,18 +22,9 @@
         <p>
         <em>  Price: </em>{{this.price}}
         </p>
-        <p>
-          <em>Product Image:</em><img src="{{this.product_pic}}" />
-        </p>
       </div>
 
     </script>
-    <script>
-    $(function(){
-      var queryString = window.location.search;
-      var id = queryString.substr(queryString.length -1);
-      productRequest(id);
-    });
-      </script>
+
     </body>
 </html>
